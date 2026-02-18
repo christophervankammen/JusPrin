@@ -137,6 +137,10 @@ set(lisbslic3r_sources
     Feature/Interlocking/VoxelUtils.cpp
     Feature/Interlocking/VoxelUtils.hpp
     FileParserError.hpp
+    FilamentGroup.cpp
+    FilamentGroup.hpp
+    FilamentGroupUtils.cpp
+    FilamentGroupUtils.hpp
     Fill/Fill3DHoneycomb.cpp
     Fill/Fill3DHoneycomb.hpp
     Fill/FillAdaptive.cpp
@@ -179,6 +183,8 @@ set(lisbslic3r_sources
     Flow.hpp
     FlushVolCalc.cpp
     FlushVolCalc.hpp
+    FlushVolPredictor.cpp
+    FlushVolPredictor.hpp
     Format/3mf.cpp
     Format/3mf.hpp
     Format/AMF.cpp
