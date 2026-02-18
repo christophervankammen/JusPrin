@@ -93,6 +93,9 @@ set(lisbslic3r_sources
     ClipperUtils.cpp
     ClipperUtils.hpp
     ClipperZUtils.hpp
+    Clipper2Utils.cpp
+    Clipper2Utils.hpp
+    Clipper2ZUtils.hpp
     Color.cpp
     Color.hpp
     Config.cpp
@@ -182,6 +185,8 @@ set(lisbslic3r_sources
     Format/AMF.hpp
     Format/bbs_3mf.cpp
     Format/bbs_3mf.hpp
+    Format/DRC.cpp
+    Format/DRC.hpp
     format.hpp
     Format/OBJ.cpp
     Format/OBJ.hpp
@@ -238,14 +243,20 @@ set(lisbslic3r_sources
     GCode/ThumbnailData.hpp
     GCode/Thumbnails.cpp
     GCode/Thumbnails.hpp
+    GCode/TimelapsePosPicker.cpp
+    GCode/TimelapsePosPicker.hpp
     GCode/ToolOrdering.cpp
     GCode/ToolOrdering.hpp
+    GCode/ToolOrderUtils.cpp
+    GCode/ToolOrderUtils.hpp
     GCode/WipeTower2.cpp
     GCode/WipeTower2.hpp
     GCode/WipeTower.cpp
     GCode/WipeTower.hpp
     GCodeWriter.cpp
     GCodeWriter.hpp
+    Geometry/ArcWelder.cpp
+    Geometry/ArcWelder.hpp
     Geometry/Bicubic.hpp
     Geometry/Circle.cpp
     Geometry/Circle.hpp
