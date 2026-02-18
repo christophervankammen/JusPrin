@@ -297,6 +297,8 @@ set(lisbslic3r_sources
     Measure.cpp
     Measure.hpp
     MeasureUtils.hpp
+    MaterialType.cpp
+    MaterialType.hpp
     MeshSplitImpl.hpp
     MinAreaBoundingBox.cpp
     MinAreaBoundingBox.hpp
@@ -320,6 +322,7 @@ set(lisbslic3r_sources
     NormalUtils.hpp
     NSVGUtils.cpp
     NSVGUtils.hpp
+    ObjColorUtils.cpp
     ObjColorUtils.hpp
     ObjectID.cpp
     ObjectID.hpp
@@ -453,6 +456,8 @@ set(lisbslic3r_sources
     Timer.cpp
     Timer.hpp
     TriangleMesh.cpp
+    TriangleMeshDeal.cpp
+    TriangleMeshDeal.hpp
     TriangleMesh.hpp
     TriangleMeshSlicer.cpp
     TriangleMeshSlicer.hpp
