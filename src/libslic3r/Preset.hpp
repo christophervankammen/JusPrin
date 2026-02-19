@@ -345,7 +345,7 @@ public:
     std::string get_printer_id() const { return vendor ? vendor->id : ""; }
 
     bool has_lidar(PresetBundle *preset_bundle);
-    bool is_custom_defined();
+    bool is_custom_defined() const;  // Made const for JusPrin
 
     BedType get_default_bed_type(PresetBundle *preset_bundle);
     bool has_cali_lines(PresetBundle* preset_bundle);
