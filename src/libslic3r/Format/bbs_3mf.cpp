@@ -2387,7 +2387,14 @@ void PlateData::parse_filament_info(GCodeProcessorResult *result)
         XML_SetEntityDeclHandler(m_xml_parser, nullptr);
         XML_SetExternalEntityRefHandler(m_xml_parser, nullptr);
 
-        void* parser_buffer = XML_GetBuffer(m_xml_parser, (int)stat.m_uncomp_size);
+        // SECURITY: Check for integer overflow before casting to int
+        if (stat.m_uncomp_size > static_cast<mz_uint64>(std::numeric_limits<int>::max())) {
+            add_error("File too large for XML parser (exceeds 2GB limit)");
+            return false;
+        }
+        int buffer_size = static_cast<int>(stat.m_uncomp_size);
+
+        void* parser_buffer = XML_GetBuffer(m_xml_parser, buffer_size);
         if (parser_buffer == nullptr) {
             add_error("Unable to create buffer");
             return false;
@@ -2399,7 +2406,7 @@ void PlateData::parse_filament_info(GCodeProcessorResult *result)
             return false;
         }
 
-        if (!XML_ParseBuffer(m_xml_parser, (int)stat.m_uncomp_size, 1)) {
+        if (!XML_ParseBuffer(m_xml_parser, buffer_size, 1)) {
             char error_buf[1024];
             ::snprintf(error_buf, 1024, "Error (%s) while parsing xml file at line %d", XML_ErrorString(XML_GetErrorCode(m_xml_parser)), (int)XML_GetCurrentLineNumber(m_xml_parser));
             add_error(error_buf);
