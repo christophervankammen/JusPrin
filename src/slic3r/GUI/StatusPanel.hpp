@@ -481,7 +481,7 @@ protected:
     SecondaryCheckDialog* ctrl_e_hint_dlg = nullptr;
     SecondaryCheckDialog* sdcard_hint_dlg = nullptr;
 
-    FanControlPopup* m_fan_control_popup{nullptr};
+    FanControlPopupNew* m_fan_control_popup{nullptr};
 
     ExtrusionCalibration *m_extrusion_cali_dlg{nullptr};
 

@@ -71,7 +71,7 @@ std::string get_calib_mode_name(CalibMode cali_mode, int stage)
         return "input_shaping_freq_calib_mode";
     case CalibMode::Calib_Input_shaping_damp:
         return "input_shaping_damp_calib_mode";
-    case CalibMode::Calib_Junction_Deviation:
+    case CalibMode::Calib_Cornering:
         return "junction_deviation_calib_mode";
     default:
         assert(false);

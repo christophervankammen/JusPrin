@@ -4,8 +4,6 @@
 #include "bambu_networking.hpp"
 #include "libslic3r/ProjectTask.hpp"
 
-using namespace BBL;
-
 namespace Slic3r {
 typedef bool (*func_check_debug_consistent)(bool is_debug);
 typedef std::string (*func_get_version)(void);

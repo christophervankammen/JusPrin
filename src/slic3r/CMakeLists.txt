@@ -108,19 +108,19 @@ set(SLIC3R_GUI_SOURCES
     GUI/DeviceCore/DevExtruderSystem.cpp
     GUI/DeviceCore/DevExtruderSystem.h
     GUI/DeviceCore/DevExtruderSystemCtrl.cpp
-    GUI/DeviceCore/DevExtruderSystemCtrl.h
+    # GUI/DeviceCore/DevExtruderSystemCtrl.h  # Header doesn't exist
     GUI/DeviceCore/DevFan.cpp
     GUI/DeviceCore/DevFan.h
     GUI/DeviceCore/DevFilaAmsSetting.cpp
     GUI/DeviceCore/DevFilaAmsSetting.h
     GUI/DeviceCore/DevFilaAmsSettingCtrl.cpp
-    GUI/DeviceCore/DevFilaAmsSettingCtrl.h
+    # GUI/DeviceCore/DevFilaAmsSettingCtrl.h  # Header doesn't exist
     GUI/DeviceCore/DevFilaBlackList.cpp
     GUI/DeviceCore/DevFilaBlackList.h
     GUI/DeviceCore/DevFilaSystem.cpp
     GUI/DeviceCore/DevFilaSystem.h
     GUI/DeviceCore/DevFilaSystemCtrl.cpp
-    GUI/DeviceCore/DevFilaSystemCtrl.h
+    # GUI/DeviceCore/DevFilaSystemCtrl.h  # Header doesn't exist
     GUI/DeviceCore/DevFirmware.cpp
     GUI/DeviceCore/DevFirmware.h
     GUI/DeviceCore/DevHMS.cpp
@@ -130,7 +130,7 @@ set(SLIC3R_GUI_SOURCES
     GUI/DeviceCore/DevLamp.cpp
     GUI/DeviceCore/DevLamp.h
     GUI/DeviceCore/DevLampCtrl.cpp
-    GUI/DeviceCore/DevLampCtrl.h
+    # GUI/DeviceCore/DevLampCtrl.h  # Header doesn't exist
     GUI/DeviceCore/DevManager.cpp
     GUI/DeviceCore/DevManager.h
     GUI/DeviceCore/DevMapping.cpp

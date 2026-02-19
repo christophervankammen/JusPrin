@@ -91,6 +91,36 @@ private:
     const LayerTools* m_layer_tools = nullptr;    // so we know which LayerTools object this belongs to
 };
 
+
+struct FilamentChangeStats
+{
+    int filament_flush_weight{0};
+    int filament_change_count{0};
+    int extruder_change_count{0};
+
+    void clear(){
+        filament_flush_weight = 0;
+        filament_change_count = 0;
+        extruder_change_count = 0;
+    }
+
+    FilamentChangeStats& operator+=(const FilamentChangeStats& other) {
+        this->filament_flush_weight += other.filament_flush_weight;
+        this->filament_change_count += other.filament_change_count;
+        this->extruder_change_count += other.extruder_change_count;
+        return *this;
+    }
+
+    FilamentChangeStats operator+(const FilamentChangeStats& other){
+        FilamentChangeStats ret;
+        ret.filament_flush_weight = this->filament_flush_weight + other.filament_flush_weight;
+        ret.filament_change_count = this->filament_change_count + other.filament_change_count;
+        ret.extruder_change_count = this->extruder_change_count + other.extruder_change_count;
+        return ret;
+    }
+
+};
+
 class LayerTools
 {
 public:
