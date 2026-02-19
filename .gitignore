@@ -48,9 +48,16 @@ task.md
 
 # Build and analysis artifacts (not for repository)
 BUILD_NOTES_CROWDSTRIKE.md
+BUILD_LOG.md
 *_audit.json
 *_audit.json.bak
 src_all_files.txt
 src/libslic3r/Format/*_AUDIT*.json
 src/libslic3r/Format/SECURITY_AUDIT*.json
 src/libslic3r/Format/STEP_OBJ*.json
+
+# Analysis and merge documentation (not for repository)
+COMPREHENSIVE_ANALYSIS_REPORT.md
+FINAL_IMPLEMENTATION_REPORT.md
+JUSPRIN_ORCASLICER_*.md
+MERGE_*.md
