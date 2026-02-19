@@ -213,6 +213,32 @@ endif ()
 if (NOT MSVC)
     # ARMs (Raspberry PI) use an unsigned char by default. Let's make it consistent for OrcaSlicer on all platforms.
     add_compile_options(-fsigned-char)
+
+    # Security hardening flags (GCC/Clang)
+    # Enable when building in Release mode to avoid debug performance impact
+    if(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+        # Buffer overflow detection
+        add_compile_definitions(_FORTIFY_SOURCE=2)
+
+        # Stack protection against buffer overflows
+        add_compile_options(-fstack-protector-strong)
+
+        # Position Independent Executable (ASLR support)
+        add_compile_options(-fPIE)
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pie")
+
+        # Full RELRO (Read-Only Relocation) - prevents GOT overwrite attacks
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-z,relro,-z,now")
+
+        # Stack clash protection (GCC 8+, Clang 11+)
+        include(CheckCXXCompilerFlag)
+        check_cxx_compiler_flag("-fstack-clash-protection" COMPILER_SUPPORTS_STACK_CLASH)
+        if(COMPILER_SUPPORTS_STACK_CLASH)
+            add_compile_options(-fstack-clash-protection)
+        endif()
+
+        message(STATUS "Security hardening flags enabled for ${CMAKE_BUILD_TYPE} build")
+    endif()
 endif ()
 
 # Auto-generate CMAKE_PREFIX_PATH for dependencies if not provided
