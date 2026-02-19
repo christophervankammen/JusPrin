@@ -41,10 +41,12 @@ resources/profiles/user/default
 deps_src/build/
 
 # Claude Code documentation (not for repository)
+# NOTE: analysis_v3.md is the active version and IS tracked in git
 analysis.md
 analysis_v2.md
 chat.md
 task.md
+/tmp/jusprin-sync-*.log
 
 # Build and analysis artifacts (not for repository)
 BUILD_NOTES_CROWDSTRIKE.md
