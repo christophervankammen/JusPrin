@@ -59,6 +59,16 @@ include("version.inc")
 include(GNUInstallDirs)
 include(CMakeDependentOption)
 
+# Export version variables as compile definitions so they're available to preprocessor
+if(DEFINED BBL_RELEASE_TO_PUBLIC)
+    add_compile_definitions(BBL_RELEASE_TO_PUBLIC=${BBL_RELEASE_TO_PUBLIC})
+    message(STATUS "BBL_RELEASE_TO_PUBLIC: ${BBL_RELEASE_TO_PUBLIC}")
+endif()
+if(DEFINED BBL_INTERNAL_TESTING)
+    add_compile_definitions(BBL_INTERNAL_TESTING=${BBL_INTERNAL_TESTING})
+    message(STATUS "BBL_INTERNAL_TESTING: ${BBL_INTERNAL_TESTING}")
+endif()
+
 set(SLIC3R_RESOURCES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/resources")
 file(TO_NATIVE_PATH "${SLIC3R_RESOURCES_DIR}" SLIC3R_RESOURCES_DIR_WIN)
 
@@ -204,6 +214,49 @@ if (NOT MSVC)
     # ARMs (Raspberry PI) use an unsigned char by default. Let's make it consistent for OrcaSlicer on all platforms.
     add_compile_options(-fsigned-char)
 endif ()
+
+# Auto-generate CMAKE_PREFIX_PATH for dependencies if not provided
+if (NOT CMAKE_PREFIX_PATH AND NOT ENV{CMAKE_PREFIX_PATH})
+    # Determine architecture-specific deps directory
+    if (APPLE)
+        # On macOS, detect the architecture
+        execute_process(
+            COMMAND uname -m
+            OUTPUT_VARIABLE DEPS_ARCH
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+        )
+    elseif (MSVC)
+        set(DEPS_ARCH "win64")
+    elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "^(aarch64|arm64)")
+        set(DEPS_ARCH "aarch64")
+    elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|AMD64)")
+        set(DEPS_ARCH "x86_64")
+    else()
+        set(DEPS_ARCH ${CMAKE_SYSTEM_PROCESSOR})
+    endif()
+
+    # Check for deps in standard locations
+    set(DEP_BUILD_DIR "${CMAKE_SOURCE_DIR}/deps/build/${DEPS_ARCH}")
+    if (NOT EXISTS "${DEP_BUILD_DIR}")
+        # Try without architecture subdirectory
+        set(DEP_BUILD_DIR "${CMAKE_SOURCE_DIR}/deps/build")
+    endif()
+    if (NOT EXISTS "${DEP_BUILD_DIR}")
+        # Try alternative location used by build scripts
+        set(DEP_BUILD_DIR "${CMAKE_SOURCE_DIR}/deps/build/destdir")
+    endif()
+
+    # Set CMAKE_PREFIX_PATH to the deps install directory
+    if (EXISTS "${DEP_BUILD_DIR}/OrcaSlicer_dep/usr/local")
+        set(CMAKE_PREFIX_PATH "${DEP_BUILD_DIR}/OrcaSlicer_dep/usr/local" CACHE PATH "Path to dependencies" FORCE)
+        message(STATUS "Auto-detected CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
+    elseif (EXISTS "${DEP_BUILD_DIR}/usr/local")
+        set(CMAKE_PREFIX_PATH "${DEP_BUILD_DIR}/usr/local" CACHE PATH "Path to dependencies" FORCE)
+        message(STATUS "Auto-detected CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
+    else()
+        message(WARNING "Could not auto-detect dependencies directory. Please set CMAKE_PREFIX_PATH manually.")
+    endif()
+endif()
 
 # Display and check CMAKE_PREFIX_PATH
 message(STATUS "SLIC3R_STATIC: ${SLIC3R_STATIC}")
